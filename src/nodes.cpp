@@ -15,7 +15,9 @@ namespace PrattParser {
             return BinaryOperator::DIVISION;
         }
         else {
-            throw std::range_error("Unrecognized binary operator " + str);
+            std::string message { "Unrecognized binary operator " };
+            message += str;
+            throw std::range_error { message };
         }
     }
 
@@ -37,19 +39,26 @@ namespace PrattParser {
             return UnaryOperator::NEGATIVE;
         }
         else {
-            throw std::range_error("Unrecognized prefix operator " + str);
+            std::string message { "Unrecognized prefix operator " };
+            message += str;
+            throw std::range_error { message };
         }
     }
 
     UnaryOperator str_to_postfix_op(std::string str) {
-        throw std::range_error("Unrecognized postfix operator " + str);
+        std::string message { "Unrecognized postfix operator " };
+        message += str;
+        throw std::range_error { message };
     }
 
     std::string unary_op_to_str(UnaryOperator op) {
         switch (op) {
             case UnaryOperator::NEGATIVE: return "-";
             case UnaryOperator::POSITIVE: return "+";
-            default: throw std::logic_error("Can't get string rep for unary operator value" + op);
+            default: 
+                std::string message { "Cannot get string representation of unrecognized unary operator value "};
+                message += std::to_string(op);
+                throw std::logic_error("Can't get string rep for unary operator value");
         }
     }
 }

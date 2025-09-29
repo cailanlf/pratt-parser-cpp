@@ -14,7 +14,9 @@ namespace PrattParser {
                 case UnaryOperator::POSITIVE:
                     return +value;
                 default: 
-                    throw std::logic_error("interpret: Encountered unexpected unary operator (value) " + a->operation);
+                    std::string message {" interpret: Encountered unexpected unary operator with value "};
+                    message += std::to_string(a->operation);
+                    throw std::logic_error(message);
             }
         }
         else if (auto *a = dynamic_cast<const BinaryOperatorNode *>(&node)) {
@@ -30,14 +32,17 @@ namespace PrattParser {
                 case BinaryOperator::DIVISION:
                     return left / right;
                 default: 
-                    throw std::logic_error("interpret: Encountered unexpected binary operator (value) " + a->operation);
+                    std::string message {" interpret: Encountered unexpected binary operator with value "};
+                    message += std::to_string(a->operation);
+                    throw std::logic_error(message);
             }
         }
         else if (auto *a = dynamic_cast<const ParenthesisExprNode *>(&node)) {
             return interpret(*a->expr);
         }
         else {
-            throw std::logic_error("interpret: Encountered unexpected node type");
+            std::string message { "interpret: Encounted unexpected node type" };
+            throw std::logic_error(message);
         }
     }
 }

@@ -43,7 +43,9 @@ namespace PrattParser {
                     consume();
                 }
             } else {
-                throw std::logic_error("Unrecognized character " + peeked);
+                std::string message { "Unrecognized character "}; 
+                message += peeked;
+                throw std::logic_error(message);
             }
         }
     }

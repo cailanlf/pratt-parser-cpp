@@ -69,7 +69,9 @@ namespace PrattParser {
             });
         }
         else {
-            throw std::logic_error("Encountered unexpected token " + tokentype_to_str(peek().type));
+            std::string message { "Encountered unexpected token " };
+            message += tokentype_to_str(peek().type);
+            throw std::logic_error { message };
         }
     }
 
