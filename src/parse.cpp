@@ -59,7 +59,16 @@ namespace PrattParser {
     std::unique_ptr<ExprNode> Parser::parse_atomic() {
         if (peek_is(TokenType::NUMBER)) {
             return std::make_unique<NumberNode>(NumberNode { consume().content });
-        } else {
+        }
+        else if (peek_is(TokenType::PARENTHESIS, "(")) {
+            expect(TokenType::PARENTHESIS, "(");
+            auto expr = parse_expression();
+            expect(TokenType::PARENTHESIS, ")");
+            return std::make_unique<ParenthesisExprNode>(ParenthesisExprNode {
+                std::move(expr)
+            });
+        }
+        else {
             throw std::logic_error("Encountered unexpected token " + tokentype_to_str(peek().type));
         }
     }

@@ -27,7 +27,11 @@ namespace PrattParser {
                 return tokens;
             } 
             else if (peeked == '+' || peeked == '-' || peeked == '/' || peeked == '*') {
-                Token token = make_token(TokenType::OPERATOR, position, std::string {consume()} );
+                Token token = make_token(TokenType::OPERATOR, position, std::string { consume() } );
+                tokens->push_back(token);
+            }
+            else if (peeked == '(' || peeked == ')') {
+                Token token = make_token(TokenType::PARENTHESIS, position, std::string { consume() });
                 tokens->push_back(token);
             }
             else if (is_digit(peeked)) {

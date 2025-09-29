@@ -33,6 +33,9 @@ namespace PrattParser {
                     throw std::logic_error("interpret: Encountered unexpected binary operator (value) " + a->operation);
             }
         }
+        else if (auto *a = dynamic_cast<const ParenthesisExprNode *>(&node)) {
+            return interpret(*a->expr);
+        }
         else {
             throw std::logic_error("interpret: Encountered unexpected node type");
         }

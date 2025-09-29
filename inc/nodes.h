@@ -89,4 +89,16 @@ namespace PrattParser {
             std::cout << std::setw(indent) << " " << "number " << value << std::endl;
         }
     };
+
+    struct ParenthesisExprNode : ExprNode {
+        std::unique_ptr<ExprNode> expr;
+        ParenthesisExprNode(std::unique_ptr<ExprNode> expr) 
+            : expr(std::move(expr)) {}
+
+        void pretty_print(int indent) override {
+            std::cout << std::setw(indent) << " " << "paren-expr" << std::endl;
+            std::cout << std::setw(indent) << " " <<  "- op: " << std::endl;
+            expr->pretty_print(indent + INDENT_DEPTH);
+        }
+    };
 }
